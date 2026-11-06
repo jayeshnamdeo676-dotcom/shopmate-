@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShopMate | Shop Management Dashboard</title>
+<style>
+:root{--purple:#7651b5;--pale:#f0ebf8;--teal:#78bdc6;--blue:#5799dc;--ink:#25232b;--muted:#898691;--line:#eceaf0;--bg:#f7f7fa;--green:#239b80;--red:#d76572}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+.layout{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:225px;background:#fff;border-right:1px solid var(--line);padding:22px 13px;display:flex;flex-direction:column;z-index:5}.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:750;padding:0 10px 28px}.logo{height:31px;width:31px;background:var(--purple);color:white;border-radius:9px;display:grid;place-items:center}.nav-label{font-size:10px;letter-spacing:1.2px;color:#aaa5b0;padding:8px 12px}.nav button{width:100%;border:0;background:transparent;border-radius:8px;padding:11px 12px;text-align:left;color:#55515c;font-size:13px;margin:2px 0;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:var(--pale);color:var(--purple);font-weight:650}.nav-icon{width:18px;text-align:center;font-size:16px}.bottom{margin-top:auto}.main{margin-left:225px;min-height:100vh}.topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:4}.search{width:min(350px,45vw);border:0;background:#fafafd;border-radius:8px;padding:10px 12px;outline:none}.user{display:flex;align-items:center;gap:10px;font-size:13px}.avatar{height:31px;width:31px;border-radius:50%;background:#e8e0f4;color:var(--purple);display:grid;place-items:center;font-weight:bold}.content{max-width:1500px;margin:auto;padding:24px 28px 42px}.welcome{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.welcome h1{font-size:21px;margin:0 0 5px}.welcome p{font-size:13px;color:var(--muted);margin:0}.btn{border:1px solid var(--line);background:white;color:#514d59;padding:9px 13px;border-radius:7px;font-size:12px}.btn.primary{background:var(--purple);border-color:var(--purple);color:white}.btn.red{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(4,1fr);background:white;border:1px solid var(--line);border-radius:9px;margin-bottom:18px}.stat{padding:17px 19px;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat-name{font-size:12px;color:#77737e}.stat-value{font-size:27px;font-weight:700;margin:10px 0 5px}.stat-foot{font-size:11px;color:var(--green)}.two-col{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(240px,.8fr);gap:17px;margin-bottom:17px}.lower{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(240px,.75fr);gap:17px}.panel{background:#fff;border:1px solid var(--line);border-radius:9px;padding:17px;min-width:0}.panel h3{font-size:14px;margin:0 0 16px}.chart{height:205px;display:flex;align-items:end;gap:10px;padding:8px 5px 0;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0,transparent 48px,#f0eff3 49px)}.bar-group{height:100%;flex:1;display:flex;align-items:end;justify-content:center;gap:3px;position:relative}.bar{width:34%;max-width:23px;border-radius:4px 4px 0 0;background:var(--teal);min-height:2px}.bar.cost{background:var(--purple)}.bar-label{position:absolute;bottom:-20px;font-size:10px;color:#898691}.legend{display:flex;justify-content:flex-end;gap:14px;font-size:11px;color:#777;margin-top:27px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.donut-wrap{display:grid;place-items:center;padding:9px}.donut{height:145px;width:145px;border-radius:50%;background:conic-gradient(var(--teal) 0 64%,var(--purple) 64% 84%,#f1f0f4 84%);display:grid;place-items:center}.donut-inner{width:98px;height:98px;border-radius:50%;background:white;display:grid;align-content:center;text-align:center}.donut-inner small{font-size:11px;color:var(--muted)}.donut-inner strong{font-size:22px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #f0eff3}th{font-weight:500;color:#8c8992;background:#fbfbfd}.empty{text-align:center;color:#999;padding:24px}.section{display:none}.section.active{display:block}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.section-head h2{font-size:20px;margin:0}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:#777}.field input,.field select{border:1px solid #e4e1e9;border-radius:7px;padding:10px;min-width:0;background:white}.form-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.mini{background:white;border:1px solid var(--line);border-radius:9px;padding:16px}.mini small{color:var(--muted)}.mini strong{display:block;font-size:22px;margin-top:8px}.hint{background:#f6f2fb;color:#5d4a79;border:1px solid #e9e0f5;padding:11px;border-radius:8px;font-size:12px;margin-bottom:14px}.menu-btn{display:none;border:0;background:transparent;font-size:22px}
+@media(max-width:930px){.sidebar{width:205px}.main{margin-left:205px}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media(max-width:680px){.sidebar{width:245px;transform:translateX(-100%);transition:.2s;box-shadow:0 0 25px #0002}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.topbar{padding:0 13px}.menu-btn{display:block}.content{padding:18px 13px}.welcome{align-items:flex-start;flex-direction:column}.two-col,.lower{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.stat{padding:13px}.stat-value{font-size:22px}.user-name{display:none}}
+</style>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+ <div class="brand"><span class="logo">S</span> ShopMate</div>
+ <div class="nav-label">WORKSPACE</div>
+ <nav class="nav" id="nav">
+  <button class="active" data-page="dashboard">Dashboard</button>
+  <button data-page="inventory">Inventory</button>
+  <button data-page="analytics">Analytics</button>
+  <button data-page="sales">Sales Orders</button>
+  <button data-page="purchases">Purchases</button>
+  <button data-page="b2b">B2B Ecommerce</button>
+  <button data-page="products">Products</button>
+  <button data-page="customers">Customers</button>
+  <button data-page="suppliers">Suppliers</button>
+ </nav>
+ <div class="bottom nav"><button data-page="settings">Settings</button></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+ <div style="display:flex;align-items:center;gap:12px">
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <input class="search" id="search" placeholder="Search products, customers...">
+ </div>
+ <div class="user">
+  <span>♧</span>
+  <span class="avatar" id="avatar">S</span>
+  <span class="user-name" id="shopLabel">My Shop</span>
+ </div>
+</header>
+
+<div class="content">
+
+<section class="section active" id="page-dashboard">
+ <div class="welcome">
+  <div><h1 id="greeting">Good day!</h1><p>Here's what's happening with your store today.</p></div>
+  <div>
+   <button class="btn" onclick="exportData()">Export</button>
+   <button class="btn primary" onclick="showPage('products')">Add product</button>
+  </div>
+ </div>
+ <div class="stats">
+  <div class="stat"><div class="stat-name">Gross Sales</div><div class="stat-value" id="grossSales">₹0</div></div>
+  <div class="stat"><div class="stat-name">Average Sale</div><div class="stat-value" id="averageSale">₹0</div></div>
+  <div class="stat"><div class="stat-name">Purchase Cost</div><div class="stat-value" id="purchaseCost">₹0</div></div>
+  <div class="stat"><div class="stat-name">Gross Profit</div><div class="stat-value" id="grossProfit">₹0</div></div>
+ </div>
+ <div class="two-col">
+  <div class="panel"><h3>Revenue vs Cost of Goods Sold</h3><div class="chart" id="mainChart"></div></div>
+  <div class="panel"><h3>Units Sold & In Stock</h3><div class="donut-wrap"><div class="donut" id="donut"><div class="donut-inner"><small>Total units</small><strong id="unitTotal">0</strong></div></div></div></div>
+ </div>
+ <div class="lower">
+  <div class="panel"><h3>Top Products</h3><div class="table-wrap"><table><thead><tr><th>Product</th><th>Supplier</th><th>Stock</th><th>Sold</th><th>Price</th></tr></thead><tbody id="topRows"></tbody></table></div></div>
+  <div class="panel"><h3>Quick actions</h3>
+   <div style="display:grid;gap:9px">
+    <button class="btn" onclick="showPage('purchases')">Record stock purchase</button>
+    <button class="btn" onclick="showPage('sales')">Record a sale</button>
+    <button class="btn" onclick="showPage('customers')">Add customer</button>
+    <button class="btn" onclick="showPage('inventory')">View stock remaining</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="page-products">
+ <div class="section-head"><h2>Products</h2></div>
+ <div class="panel">
+  <h3>Add a product</h3>
+  <form id="productForm">
+   <div class="form-grid">
+    <div class="field"><label>Product name</label><input id="pName" required></div>
+    <div class="field"><label>Category</label><input id="pCategory"></div>
+    <div class="field"><label>Buying cost per unit (₹)</label><input id="pCost" type="number" min="0" value="0" required></div>
+    <div class="field"><label>Selling price per unit (₹)</label><input id="pPrice" type="number" min="0" required></div>
+    <div class="field"><label>Opening stock quantity</label><input id="pQty" type="number" min="0" value="0" required></div>
+    <div class="field"><label>Supplier</label><input id="pSupplier"></div>
+   </div>
+   <div class="form-actions"><button class="btn primary">Save product</button><button class="btn" type="reset">Clear</button></div>
+  </form>
+ </div>
+ <div class="panel"><h3>Product list</h3><div class="table-wrap"><table><thead><tr><th>Product</th><th>Category</th><th>Buy cost</th><th>Sell price</th><th>Stock</th><th>Supplier</th><th>Action</th></tr></thead><tbody id="productRows"></tbody></table></div></div>
+</section>
+
+<section class="section" id="page-purchases">
+ <div class="section-head"><h2>Purchases / Stock In</h2></div>
+ <div class="panel">
+  <h3>Record goods purchased from supplier</h3>
+  <form id="purchaseForm">
+   <div class="form-grid">
+    <div class="field"><label>Product</label><select id="buyProduct" required></select></div>
+    <div class="field"><label>Quantity purchased</label><input id="buyQty" type="number" min="1" value="1" required></div>
+    <div class="field"><label>Buying cost per unit (₹)</label><input id="buyCost" type="number" min="0" required></div>
+    <div class="field"><label>Supplier</label><input id="buySupplier"></div>
+    <div class="field"><label>Purchase date</label><input id="buyDate" type="date" required></div>
+   </div>
+   <div class="form-actions"><button class="btn primary">Save purchase & add stock</button></div>
+  </form>
+ </div>
+ <div class="panel"><h3>Purchase history</h3><div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th>Quantity</th><th>Cost / unit</th><th>Total paid</th><th>Supplier</th></tr></thead><tbody id="purchaseRows"></tbody></table></div></div>
+</section>
+
+<section class="section" id="page-inventory">
+ <div class="section-head"><h2>Inventory / Stock Remaining</h2><button class="btn primary" onclick="showPage('purchases')">Add purchased stock</button></div>
+ <div class="cards">
+  <div class="mini"><small>Total units currently in stock</small><strong id="inventoryUnits">0</strong></div>
+  <div class="mini"><small>Estimated stock buying value</small><strong id="stockValue">₹0</strong></div>
+  <div class="mini"><small>Low stock products</small><strong id="lowStock">0</strong></div>
+ </div>
+ <div class="panel"><h3>Current stock</h3><div class="table-wrap"><table><thead><tr><th>Product</th><th>Stock remaining</th><th>Buying cost</th><th>Stock value</th><th>Status</th></tr></thead><tbody id="inventoryRows"></tbody></table></div></div>
+</section>
+
+<section class="section" id="page-sales">
+ <div class="section-head"><h2>Sales Orders</h2></div>
+ <div class="panel">
+  <h3>Record a sale</h3>
+  <form id="saleForm">
+   <div class="form-grid">
+    <div class="field"><label>Product</label><select id="saleProduct" required></select></div>
+    <div class="field"><label>Quantity sold</label><input id="saleQty" type="number" min="1" value="1" required></div>
+    <div class="field"><label>Customer name</label><input id="saleCustomer"></div>
+    <div class="field"><label>Payment method</label><select id="salePayment"><option>Cash</option><option>UPI</option><option>Card</option><option>Bank transfer</option><option>Credit</option></select></div>
+    <div class="field"><label>Sale date</label><input id="saleDate" type="date" required></div>
+   </div>
+   <div class="form-actions"><button class="btn primary">Save sale & reduce stock</button></div>
+  </form>
+ </div>
+ <div class="panel"><h3>Sales history</h3><div class="table-wrap"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Customer</th><th>Payment</th><th>Revenue</th><th>Cost</th><th>Profit</th></tr></thead><tbody id="salesRows"></tbody></table></div></div>
+</section>
+
+<section class="section" id="page-analytics">
+ <div class="section-head"><h2>Analytics</h2><button class="btn" onclick="exportData()">Export data</button></div>
+ <div class="cards">
+  <div class="mini"><small>Total sales revenue</small><strong id="aRevenue">₹0</strong></div>
+  <div class="mini"><small>Estimated gross profit</small><strong id="aProfit">₹0</strong></div>
+  <div class="mini"><small>Units sold</small><strong id="aUnits">0</strong></div>
+ </div>
+ <div class="panel"><h3>Revenue vs cost by month</h3><div class="chart" id="analyticsChart"></div></div>
+</section>
+
+<section class="section" id="page-b2b">
+ <div class="section-head"><h2>B2B Ecommerce Catalogue</h2></div>
+ <div class="hint">This is an internal catalogue preview. Products added in Products appear here. Customer ordering, online payments and public storefront need additional development and a secure backend.</div>
+ <div class="cards" id="b2bCards"></div>
+</section>
+
+<section class="section" id="page-customers">
+ <div class="section-head"><h2>Customers</h2></div>
+ <div class="panel">
+  <h3>Add customer</h3>
+  <form id="customerForm">
+   <div class="form-grid">
+    <div class="field"><label>Name</label><input id="cName" required></div>
+    <div class="field"><label>Phone</label><input id="cPhone"></div>
+    <div class="field"><label>Email</label><input id="cEmail" type="email"></div>
+    <div class="field"><label>Address</label><input id="cAddress"></div>
+   </div>
+   <div class="form-actions"><button class="btn primary">Save customer</button></div>
+  </form>
+ </div>
+ <div class="panel"><h3>Customer list</h3><div class="table-wrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Action</th></tr></thead><tbody id="customerRows"></tbody></table></div></div>
+</section>
+
+<section class="section" id="page-suppliers">
+ <div class="section-head"><h2>Suppliers</h2></div>
+ <div class="panel">
+  <h3>Add supplier</h3>
+  <form id="supplierForm">
+   <div class="form-grid">
+    <div class="field"><label>Supplier name</label><input id="sName" required></div>
+    <div class="field"><label>Phone</label><input id="sPhone"></div>
+    <div class="field"><label>Email</label><input id="sEmail" type="email"></div>
+    <div class="field"><label>Notes</label><input id="sNotes"></div>
+   </div>
+   <div class="form-actions"><button class="btn primary">Save supplier</button></div>
+  </form>
+ </div>
+ <div class="panel"><h3>Supplier list</h3><div class="table-wrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Notes</th><th>Action</th></tr></thead><tbody id="supplierRows"></tbody></table></div></div>
+</section>
+
+<section class="section" id="page-settings">
+ <div class="section-head"><h2>Settings</h2></div>
+ <div class="panel">
+  <h3>Shop profile</h3>
+  <form id="settingsForm">
+   <div class="form-grid">
+    <div class="field"><label>Shop name</label><input id="shopName"></div>
+    <div class="field"><label>Owner name</label><input id="ownerName"></div>
+    <div class="field"><label>Currency</label><select id="currency"><option value="INR">Indian Rupee (₹)</option><option value="USD">US Dollar ($)</option></select></div>
+   </div>
+   <div class="form-actions">
+    <button class="btn primary">Save settings</button>
+    <button class="btn" type="button" onclick="exportData()">Export backup</button>
+    <button class="btn red" type="button" onclick="clearData()">Clear all data</button>
+   </div>
+  </form>
+  <p class="hint">Prototype: this version saves data in this browser only. It is not yet connected to separate secure shopkeeper accounts or cloud storage.</p>
+ </div>
+</section>
+
+</div>
+</main>
+
+<script>
+const STORE_KEY='shopmate_reference_dashboard_v2';
+const fresh=()=>({products:[],purchases:[],sales:[],customers:[],suppliers:[],settings:{shopName:'My Shop',ownerName:'',currency:'INR'}});
+let db;
+try{db=JSON.parse(localStorage.getItem(STORE_KEY))||fresh()}catch(e){db=fresh()}
+
+function persist(){localStorage.setItem(STORE_KEY,JSON.stringify(db));render()}
+function cash(n){return (db.settings.currency==='USD'?'$':'₹')+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
+function safe(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function byId(id){return document.getElementById(id)}
+
+function page(p){
+ document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));
+ byId('page-'+p).classList.add('active');
+ document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));
+ byId('sidebar').classList.remove('open');
+}
+function showPage(p){page(p)}
+
+document.querySelectorAll('.nav button[data-page]').forEach(b=>b.addEventListener('click',()=>page(b.dataset.page)));
+byId('menuBtn').onclick=()=>byId('sidebar').classList.toggle('open');
+
+function totals(){
+ let revenue=db.sales.reduce((s,x)=>s+x.revenue,0);
+ let cogs=db.sales.reduce((s,x)=>s+x.cost,0);
+ let units=db.sales.reduce((s,x)=>s+x.qty,0);
+ let stock=db.products.reduce((s,p)=>s+p.qty,0);
+ return {revenue,cogs,profit:revenue-cogs,units,stock,avg:db.sales.length?revenue/db.sales.length:0,purchases:db.purchases.reduce((s,x)=>s+x.total,0)};
+}
+
+byId('productForm').onsubmit=e=>{
+ e.preventDefault();
+ db.products.push({
+  id:Date.now(),
+  name:byId('pName').value.trim(),
+  category:byId('pCategory').value.trim(),
+  cost:+byId('pCost').value,
+  price:+byId('pPrice').value,
+  qty:+byId('pQty').value,
+  sold:0,
+  supplier:byId('pSupplier').value.trim()
+ });
+ e.target.reset();
+ byId('pCost').value=0;
+ byId('pQty').value=0;
+ persist();
+};
+
+byId('purchaseForm').onsubmit=e=>{
+ e.preventDefault();
+ let p=db.products.find(x=>x.id===+byId('buyProduct').value);
+ let q=+byId('buyQty').value;
+ let c=+byId('buyCost').value;
+ if(!p||q<1||c<0){alert('Select a product and enter valid quantity and cost.');return}
+ p.qty+=q;
+ p.cost=c;
+ if(byId('buySupplier').value.trim())p.supplier=byId('buySupplier').value.trim();
+ db.purchases.unshift({
+  id:Date.now(),
+  date:byId('buyDate').value,
+  product:p.name,
+  qty:q,
+  cost:c,
+  total:q*c,
+  supplier:byId('buySupplier').value||p.supplier
+ });
+ e.target.reset();
+ byId('buyQty').value=1;
+ byId('buyDate').value=today();
+ persist();
+};
+
+byId('saleForm').onsubmit=e=>{
+ e.preventDefault();
+ let p=db.products.find(x=>x.id===+byId('saleProduct').value);
+ let q=+byId('saleQty').value;
+ if(!p||q<1||q>p.qty){alert
